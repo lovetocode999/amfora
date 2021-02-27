@@ -162,6 +162,8 @@ func addBookmark() {
 	name, exists := bookmarks.Get(p.URL)
 	// Open a bookmark modal with the current name of the bookmark, if it exists
 	newName, action := openBkmkModal(name, exists, p.Favicon)
+
+	//nolint:exhaustive
 	switch action {
 	case add:
 		bookmarks.Add(p.URL, newName)
