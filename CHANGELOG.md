@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Bookmarks are stored using XML in the XBEL format, old bookmarks are transferred (#68)
+
 ### Fixed
 - Help text is now the same color as `regular_text` in the theme config
 - Non-ASCII (multibyte) characters can now be used as keybindings (#198, #200)
+- Possible subscription update race condition on startup
 
 
 ## [1.8.0] - 2021-02-17

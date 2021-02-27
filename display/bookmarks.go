@@ -15,9 +15,18 @@ import (
 // For adding and removing bookmarks, basically a clone of the input modal.
 var bkmkModal = cview.NewModal()
 
+type bkmkAction int
+
+const (
+	add bkmkAction = iota
+	change
+	cancel
+	remove
+)
+
 // bkmkCh is for the user action
-var bkmkCh = make(chan int) // 1, 0, -1 for add/update, cancel, and remove
-var bkmkModalText string    // The current text of the input field in the modal
+var bkmkCh = make(chan bkmkAction)
+var bkmkModalText string // The current text of the input field in the modal
 
 func bkmkInit() {
 	panels.AddPanel("bkmk", bkmkModal, false, false)
@@ -60,15 +69,15 @@ func bkmkInit() {
 	m.SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 		switch buttonLabel {
 		case "Add":
-			bkmkCh <- 1
+			bkmkCh <- add
 		case "Change":
-			bkmkCh <- 1
+			bkmkCh <- change
 		case "Remove":
-			bkmkCh <- -1
+			bkmkCh <- remove
 		case "Cancel":
-			bkmkCh <- 0
+			bkmkCh <- cancel
 		case "":
-			bkmkCh <- 0
+			bkmkCh <- cancel
 		}
 	})
 }
@@ -154,11 +163,12 @@ func addBookmark() {
 	// Open a bookmark modal with the current name of the bookmark, if it exists
 	newName, action := openBkmkModal(name, exists, p.Favicon)
 	switch action {
-	case 1:
-		// Add/change the bookmark
-		bookmarks.Set(p.URL, newName)
-	case -1:
+	case add:
+		bookmarks.Add(p.URL, newName)
+	case change:
+		bookmarks.Change(p.URL, newName)
+	case remove:
 		bookmarks.Remove(p.URL)
 	}
-	// Other case is action = 0, meaning "Cancel", so nothing needs to happen
+	// Other case is action == cancel, so nothing needs to happen
 }
