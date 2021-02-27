@@ -9,6 +9,7 @@ require (
 	github.com/google/go-cmp v0.5.0 // indirect
 	github.com/makeworld-the-better-one/go-gemini v0.11.0
 	github.com/makeworld-the-better-one/go-isemoji v1.1.0
+	github.com/mattn/go-runewidth v0.0.10
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.3.1 // indirect
 	github.com/mmcdole/gofeed v1.1.0
