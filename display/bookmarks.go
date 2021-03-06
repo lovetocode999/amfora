@@ -87,7 +87,7 @@ func bkmkInit() {
 // It also accepts a bool indicating whether this page already has a bookmark.
 // It returns the bookmark name and the bookmark action:
 // 1, 0, -1 for add/update, cancel, and remove
-func openBkmkModal(name string, exists bool, favicon string) (string, int) {
+func openBkmkModal(name string, exists bool, favicon string) (string, bkmkAction) {
 	// Basically a copy of Input()
 
 	// Reset buttons before input field, to make sure the input is in focus
